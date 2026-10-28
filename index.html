@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="面向青少年的冒泡排序互动游戏">
+  <title>芭蕾舞台大危机｜冒泡排序互动游戏</title>
+  <link rel="stylesheet" href="style.css?v=20261025d">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <h1>芭蕾舞台大危机</h1>
+    </header>
+
+    <nav class="level-tabs" aria-label="游戏选择">
+      <button class="level-tab active" type="button" data-level="manual" aria-selected="true">① 手动排序</button>
+      <button class="level-tab" type="button" data-level="auto" aria-selected="false">② 编程挑战</button>
+    </nav>
+
+    <section id="manual-level" class="level-view active" aria-labelledby="manual-title">
+      <div class="section-heading">
+        <div>
+          <span class="step-label">游戏一</span>
+          <h2 id="manual-title">交换相邻舞者，按身高从高到低排队</h2>
+        </div>
+        <div class="heading-actions">
+          <div class="counter-card"><span>交换</span><strong id="manual-swap-count">0</strong><span>次</span></div>
+          <button id="manual-reset" class="button secondary" type="button">↻ 重置</button>
+        </div>
+      </div>
+
+      <div id="manual-stage" class="stage-frame" aria-label="手动排序舞台">
+        <div class="stage-caption">先点一位舞者，再点她旁边的舞者</div>
+        <div class="dancer-layer"></div>
+      </div>
+
+      <div id="manual-message" class="message-card info" role="status" aria-live="polite" hidden></div>
+    </section>
+
+    <section id="auto-level" class="level-view" aria-labelledby="auto-title" hidden>
+      <div class="section-heading auto-heading">
+        <div>
+          <span class="step-label">游戏二</span>
+          <h2 id="auto-title">补全程序，让舞者自动排序</h2>
+        </div>
+        <div class="live-stats" aria-label="运行状态">
+          <div><span>轮次</span><strong id="round-stat">—</strong></div>
+          <div><span>比较</span><strong id="compare-stat">—</strong></div>
+          <div><span>交换</span><strong id="auto-swap-stat">0</strong></div>
+        </div>
+      </div>
+
+      <div class="auto-layout">
+        <aside class="code-workbench" aria-label="程序选择区">
+          <div class="workbench-title"><strong>舞台指挥程序</strong><span>补全 3 处</span></div>
+          <div class="scratch-stack">
+            <div class="scratch-block event-block">▶ 当“运行”被点击</div>
+            <div class="scratch-block loop-block outer-block">
+              <div class="block-line">重复
+                <select id="outer-choice" aria-label="外层循环轮数">
+                  <option value="" selected disabled>请选择</option>
+                  <option value="3">3 轮</option>
+                  <option value="5">5 轮</option>
+                  <option value="6">6 轮</option>
+                </select>
+                <span class="loop-index-note">i 从 0 开始</span>
+              </div>
+              <div class="block-mouth">
+                <div class="scratch-block loop-block inner-block">
+                  <div class="block-line">从左到右比较
+                    <select id="inner-choice" aria-label="每轮比较次数">
+                      <option value="" selected disabled>请选择</option>
+                      <option value="shrink">6 - 1 - i 次</option>
+                      <option value="fixed">每轮 5 次</option>
+                      <option value="grow">i + 1 次</option>
+                    </select>
+                  </div>
+                  <div class="block-mouth nested">
+                    <div class="scratch-block condition-block">
+                      <div>如果
+                        <select id="condition-choice" aria-label="交换条件">
+                          <option value="" selected disabled>请选择</option>
+                          <option value="desc">左边 &lt; 右边</option>
+                          <option value="asc">左边 &gt; 右边</option>
+                          <option value="always">每次都交换</option>
+                        </select>
+                      </div>
+                      <div class="action-line">那么 <span>交换这两位舞者</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </aside>
+
+        <div class="auto-stage-column">
+          <div id="auto-stage" class="stage-frame auto-stage" aria-label="自动排序舞台">
+            <div id="scan-beam" class="scan-beam" aria-hidden="true"></div>
+            <div class="stage-caption auto-caption"><span id="stage-action">请先补全左侧程序</span></div>
+            <div class="dancer-layer"></div>
+          </div>
+
+          <div class="control-deck">
+            <div class="transport-controls">
+              <button id="run-button" class="button primary run" type="button">▶ 运行</button>
+              <button id="step-button" class="icon-button" type="button">▸ 单步</button>
+              <button id="pause-button" class="icon-button" type="button" disabled>Ⅱ 暂停</button>
+              <button id="auto-reset" class="icon-button" type="button">↻ 重置</button>
+            </div>
+            <label class="speed-control" for="speed-range">
+              <span>速度</span>
+              <input id="speed-range" type="range" min="0" max="2" value="1" step="1">
+              <output id="speed-label">标准</output>
+            </label>
+          </div>
+
+          <div id="auto-message" class="message-card info compact" role="status" aria-live="polite" hidden></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="app.js?v=20261025e" defer></script>
+</body>
+</html>
